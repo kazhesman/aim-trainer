@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GRIDSHOT</title>
+  </head>
+  <body>
+    <img src="artwork/gridshot.png" alt="" srcset="" />
+    <p>score:</p>
+    <p id="score">1</p>
+    <p id="time">01:00</p>
+    <div class="alert">
+      <h1>TAP TO START</h1>
+    </div>
+    <div class="area">
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+      <div class="circle-block">
+        <img class="point" src="artwork/pngegg.png" alt="" />
+      </div>
+    </div>
+  </body>
+  <style>
+    * {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    body p {
+      margin: 0px 0px;
+    }
+    body {
+      text-align: center;
+    }
+    .point {
+      width: 115px;
+    }
+    .circle-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 0px solid green;
+      height: 80px;
+      width: 80px;
+      border-radius: 50px;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    .area {
+      cursor: not-allowed;
+      display: grid;
+      grid-gap: 50px;
+      justify-content: center;
+      grid-template-columns: repeat(5, 50px);
+      grid-template-rows: repeat(5, 50px);
+      margin: 25px auto;
+      width: 90vw;
+      height: 50vw;
+      border: 1px solid black;
+    }
+    .alert {
+      position: absolute;
+      border: 0px solid red;
+      width: 95vw;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: brown;
+      font-size: large;
+    }
+  </style>
+  <script>
+    const area = document.getElementsByClassName("area")[0];
+    const points = document.querySelectorAll(".circle-block");
+    const tap = document.getElementsByClassName("alert")[0];
+    let score = document.getElementById("score");
+    let time = document.getElementById('time');
+
+    function playSound(sound) {
+        const audio = new Audio(sound);
+        audio.volume = 0.5;
+        audio.play()
+        .catch(err => console.error('sound err', err))
+    }
+
+    points.forEach((point) => {
+      point.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        makeRandomPoint();
+        playSound('vox/shot.wav');
+        playSound('vox/hit.wav');
+        score.innerText = Number(score.innerText) + 100;
+        point.style.visibility = "hidden";
+      });
+    });
+
+    area.addEventListener("mousedown", (e) => {
+      e.stopPropagation();
+      playSound('vox/shot.wav');
+      score.innerText = Number(score.innerText) - 100;
+    });
+
+
+
+
+
+    function makeRandomPoint(ASSHOLE) {
+      const randomNumber = Math.floor(Math.random() * 25);
+      console.log(randomNumber);
+      if (points[randomNumber].style.visibility !== "visible") {
+        points[randomNumber].style.visibility = "visible";
+      } else {
+        console.log("same");
+        makeRandomPoint();
+      }
+    }
+
+    function hideAll(DAMN) {
+      points.forEach((point) => {
+        point.style.visibility = "hidden";
+      });
+    }
+
+
+    function startTimer() {
+    let count = 59;
+    const interval = setInterval(() => {
+        console.log(count);
+        time.innerText = count > 10 ? '00:' + count : '00:0' + count;
+        count--;
+
+        if (count === 0) {
+          tap.style.display = "flex";
+          tap.innerText = 'ТЫ ПРОСРАЛ!';
+          playSound('vox/lose3.wav');
+          clearInterval(interval);
+          console.log("game ended");
+          time.innerText = '01:00'
+          setTimeout(() => {
+            tap.addEventListener("click", startGame);
+          }, 3000);
+        
+        }
+      }, 1000);
+    }
+
+
+    function startGame(LETSGOBITCH) {
+      // get3Points
+      hideAll();
+      makeRandomPoint();
+      makeRandomPoint();
+      makeRandomPoint();
+      let count = 3;
+      tap.innerText = count;
+      tap.removeEventListener('click', startGame);
+      playSound('vox/ready_alert.mp3');
+      playSound('vox/ready1_loud.wav');
+
+
+      
+      const interval = setInterval(() => {
+        console.log(count - 1);
+        count--;
+        tap.innerText = count;
+
+        if (count === 0) {
+          tap.style.display = "none";
+          clearInterval(interval);
+          console.log("game started");
+          score.innerText = 0;
+          startTimer();
+        }
+      }, 1500);
+
+
+    }
+
+    tap.addEventListener("click", startGame);
+    
+  </script>
+</html>
